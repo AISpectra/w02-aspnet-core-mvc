@@ -67,6 +67,7 @@ Migrations/
 Models/
  ErrorViewModel.cs
  Movie.cs
+ SeedData.cs
 obj/Debug/net10.0/
  .NETCoreApp,Version=v10.0.AssemblyAttributes.cs
  MvcMovie.AssemblyInfo.cs
