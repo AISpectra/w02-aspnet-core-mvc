@@ -22,6 +22,11 @@
             <input type="text" asp-for="SearchString" />
         </label>
 
+        <label>
+            Year or newer:
+            <input type="number" asp-for="ReleaseYear" min="1900" max="2100" />
+        </label>
+        
         <input type="submit" value="Filter" />
     </p>
 </form>

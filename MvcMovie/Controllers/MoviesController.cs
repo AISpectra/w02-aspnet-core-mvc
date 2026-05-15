@@ -20,39 +20,46 @@ namespace MvcMovie.Controllers
         }
 
         // GET: Movies
-        // GET: Movies
-        public async Task<IActionResult> Index(string movieGenre, string searchString)
+        public async Task<IActionResult> Index(string movieGenre, string searchString, int? releaseYear)
         {
             if (_context.Movie == null)
             {
                 return Problem("Entity set 'MvcMovieContext.Movie' is null.");
             }
 
-           IQueryable<string> genreQuery = from m in _context.Movie
-                                          orderby m.Genre
-                                          select m.Genre;
+            IQueryable<string> genreQuery = from m in _context.Movie
+                                            orderby m.Genre
+                                            select m.Genre;
 
-           var movies = from m in _context.Movie
+            var movies = from m in _context.Movie
                         select m;
 
-           if (!string.IsNullOrEmpty(searchString))
-           {
-              movies = movies.Where(s =>
-                  s.Title!.ToUpper().Contains(searchString.ToUpper()));
-           }
-
-           if (!string.IsNullOrEmpty(movieGenre))
+            if (!string.IsNullOrEmpty(searchString))
             {
-               movies = movies.Where(x => x.Genre == movieGenre);
-           }
+                movies = movies.Where(s =>
+                    s.Title!.ToUpper().Contains(searchString.ToUpper()));
+            }
 
-           var movieGenreVM = new MovieGenreViewModel
+            if (!string.IsNullOrEmpty(movieGenre))
             {
+                movies = movies.Where(x => x.Genre == movieGenre);
+            }
+
+         if (releaseYear.HasValue)
+            {
+                movies = movies.Where(m => m.ReleaseDate.Year >= releaseYear.Value);
+            }
+
+            var movieGenreVM = new MovieGenreViewModel
+          {
               Genres = new SelectList(await genreQuery.Distinct().ToListAsync()),
-              Movies = await movies.ToListAsync()
-           };
+              Movies = await movies.ToListAsync(),
+              MovieGenre = movieGenre,
+               SearchString = searchString,
+               ReleaseYear = releaseYear
+            };
 
-           return View(movieGenreVM);
+            return View(movieGenreVM);
         }
 
         // GET: Movies/Details/5

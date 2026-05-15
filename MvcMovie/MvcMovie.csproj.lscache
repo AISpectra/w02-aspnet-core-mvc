@@ -63,6 +63,8 @@ Data/MvcMovieContext.cs
 Migrations/
  20260515112249_InitialCreate.cs
  20260515112249_InitialCreate.Designer.cs
+ 20260515123817_New_DataAnnotations.cs
+ 20260515123817_New_DataAnnotations.Designer.cs
  MvcMovieContextModelSnapshot.cs
 Models/
  ErrorViewModel.cs

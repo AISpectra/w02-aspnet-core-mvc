@@ -11,4 +11,6 @@ public class MovieGenreViewModel
     public string? MovieGenre { get; set; }
 
     public string? SearchString { get; set; }
+
+    public int? ReleaseYear { get; set; }
 }
